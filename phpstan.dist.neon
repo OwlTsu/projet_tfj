@@ -1,0 +1,8 @@
+parameters:
+    level: 6
+    paths:
+        - public/
+        - src/
+        - tests/
+    ignoreErrors:
+        - '#Call to function method_exists\(\) with .*Symfony\\\\Component\\\\Dotenv\\\\Dotenv.*bootEnv.*will always evaluate to true#'
