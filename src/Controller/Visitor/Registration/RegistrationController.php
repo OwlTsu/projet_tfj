@@ -56,12 +56,18 @@ class RegistrationController extends AbstractController
             );
 
             // do anything else you need here, like send an email
-            return $this->redirectToRoute('app_visitor_welcome');
+            return $this->redirectToRoute('app_register_waiting_for_email_verification');
         }
 
         return $this->render('pages/visitor/registration/register.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
+    }
+
+    #[Route('/inscription/en-attente-de-la-verification-du-compte', name: 'app_register_waiting_for_email_verification', methods: ['GET'])]
+    public function waitingForEmailVerification(): Response
+    {
+        return $this->render('pages/visitor/registration/waiting_for_email_verification.html.twig');
     }
 
     #[Route('/verify/email', name: 'app_verify_email')]
@@ -91,6 +97,6 @@ class RegistrationController extends AbstractController
         // @TODO Change the redirect on success and handle or remove the flash message in your templates
         $this->addFlash('success', 'Your email address has been verified.');
 
-        return $this->redirectToRoute('app_register');
+        return $this->redirectToRoute('app_visitor_welcome');
     }
 }
