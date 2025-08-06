@@ -1,23 +1,143 @@
 <!DOCTYPE html>
+<html lang="fr">
+	<head>
 
-<title>Register</title>
+		{# Encodage standard des caractères pour le web #}
+		<meta
+		charset="UTF-8">
 
-{% block body %}
-	{% for flash_error in app.flashes('verify_email_error') %}
-		<div class="alert alert-danger" role="alert">{{ flash_error }}</div>
-	{% endfor %}
+		{# Minimum de Responsive Design à toujours mettre en place #}
+		<meta
+		name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<h1>Register</h1>
+		{# Le titre de la page #}
+		<title>Inscription - Tables et fleurs d'un jour</title>
 
-	{{ form_errors(registrationForm) }}
+		{# La description de la page #}
+		<meta
+		name="description" content="Inscrivez-vous pour une prise de contact plus simple ">
 
-	{{ form_start(registrationForm) }}
-	{{ form_row(registrationForm.email) }}
-	{{ form_row(registrationForm.password, {
-            label: 'Password'
-        }) }}
-	{{ form_row(registrationForm.agreeTerms) }}
+		{# Autorisation aux robots des moteurs de recherche d'indexer et de suivre la page #}
+		<meta
+		name="robots" content="index, follow">
 
-	<button formnovalidate type="submit" class="btn">S'inscrire</button>
-	{{ form_end(registrationForm) }}
-{% endblock %}
+		{# Les mots clés de la page #}
+		<meta
+		name="keywords" content="Inscription, Blog, Jean-Dupont">
+
+		{# Google font #}
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link
+		href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+		{# Lien css de Bootstrap 5 #}
+		{% block stylesheets %}
+			{{ encore_entry_link_tags('app') }}
+		{% endblock %}
+
+		{# Lien js de Bootstrap 5 #}
+		{% block javascripts %}
+			{{ encore_entry_script_tags('app') }}
+		{% endblock %}
+
+	</head>
+	<body class="vh-100">
+		<div class="container mt-5">
+			<div class="row">
+				<div
+					class="col-lg-6 d-flex align-items-center">
+					{# Img #}
+					<img src="/assets/img/logo-TFJ-bgremoved.png" alt="logo tables et fleurs d'un jour de la page inscription" class="img-fluid mx-auto">
+				</div>
+
+				<div
+					class="col-lg-6 vh-100 d-flex flex-column justify-content-center align-items-center">
+					{# Form #}
+					{% for flash_error in app.flashes('verify_email_error') %}
+						<div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+					{% endfor %}
+
+					<h1 class="my-3">Inscription</h1>
+
+					{{ form_errors(registrationForm) }}
+
+					{{ form_start(registrationForm) }}
+					<div class="row mb-3">
+						<div class="col-lg-6">
+							<label for="registration_form_firstName">Prénom</label>
+							<div class="text-danger">{{form_errors(registrationForm.firstName)}}</div>
+							{{form_widget(registrationForm.firstName, {'attr': {'class':'form-control', 'autofocus': 'autofocus'}})}}
+						</div>
+						<div class="col-lg-6">
+							<label for="registration_form_lastName">Nom</label>
+							<div class="text-danger">{{form_errors(registrationForm.lastName)}}</div>
+							{{form_widget(registrationForm.lastName, {'attr': {'class':'form-control'}})}}
+						</div>
+					</div>
+					<div class="mb-3">
+						<label for="registration_form_email">Email</label>
+						<div class="text-danger">{{form_errors(registrationForm.email)}}</div>
+						{{form_widget(registrationForm.email, {'attr': {'class':'form-control'}})}}
+					</div>
+					<div class="mb-3">
+						<label for="registration_form_password_first">Mot de passe</label>
+						<div class="text-danger">{{form_errors(registrationForm.password.first)}}</div>
+						{{form_widget(registrationForm.password.first, {'attr': {'class':'form-control'}})}}
+					</div>
+					<div class="mb-3">
+						<label for="registration_form_password_second">Confirmation du mot de passe</label>
+						<div class="text-danger">{{form_errors(registrationForm.password.second)}}</div>
+						{{form_widget(registrationForm.password.second, {'attr': {'class':'form-control'}})}}
+					</div>
+					<div class="mb-3">
+						<div class="text-danger">{{form_errors(registrationForm.agreeTerms)}}</div>
+						<label for="registration_form_agreeTerms">
+							{{form_widget(registrationForm.agreeTerms)}}
+							Lire et accepter
+							<a data-bs-toggle="modal" data-bs-target="#staticBackdrop" href="">les conditions générales d'utilisation</a>
+						</label>
+
+						<!-- Modal -->
+						<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h1 class="modal-title fs-5" id="staticBackdropLabel">Les conditions générales d'utilisation</h1>
+										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+										<p>
+											Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro assumenda ipsum voluptatem nobis necessitatibus? Nobis aliquam placeat ipsa, quis hic ratione autem nesciunt est, explicabo at id. Magnam, impedit dolor?
+										</p>
+										<p>
+											Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro assumenda ipsum voluptatem nobis necessitatibus? Nobis aliquam placeat ipsa, quis hic ratione autem nesciunt est, explicabo at id. Magnam, impedit dolor?
+										</p>
+										<p>
+											Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro assumenda ipsum voluptatem nobis necessitatibus? Nobis aliquam placeat ipsa, quis hic ratione autem nesciunt est, explicabo at id. Magnam, impedit dolor?
+										</p>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div>
+						<input formnovalidate type="submit" class="btn btn-secondary w-100" value="S'inscrire">
+					</div>
+					{{ form_end(registrationForm) }}
+
+					<div
+						class="mt-3 text-center">
+						{# <p>Vous avez déjà un compte? <a href="{{path('app_login')}}">Connectez-vous</a></p> #}
+						<p>
+							<a href="{{path('app_visitor_welcome')}}">Retour à l'accueil</a>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
