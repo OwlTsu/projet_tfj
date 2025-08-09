@@ -22,6 +22,8 @@ class UserChecker implements UserCheckerInterface
             return;
         }
 
+        // Si l'utilisateur n'a pas encore vérifié son compte par email,
+        // il ne peut pas se connecter.
         if (!$user->isVerified()) {
             throw new CustomUserMessageAccountStatusException('Veuillez vérifier votre compte par email afin de vous connecter.');
         }
