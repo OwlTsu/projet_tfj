@@ -43,7 +43,7 @@
 			</button>
 
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav mr-auto">
+				<ul class="navbar-nav mr-auto d-flex justify-content-between">
 
 					<li class="nav-item active">
 						<a class="nav-link" href="{{path('app_visitor_welcome')}}">Accueil
@@ -69,12 +69,18 @@
 				</li>
 			</ul>
 			<ul class="navbar-nav ms-auto">
-				<li class="nav-item">
-					<a class="nav-link" href="{{path('app_login')}}">Connexion</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="{{path('app_register')}}">Inscription</a>
-				</li>
+				{% if app.user %}
+					<li class="nav-item">
+						<a class="nav-link" href="{{path('app_logout')}}">Déconnexion</a>
+					</li>
+				{% else %}
+					<li class="nav-item">
+						<a class="nav-link" href="{{path('app_login')}}">Connexion</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{{path('app_register')}}">Inscription</a>
+					</li>
+				{% endif %}
 			</ul>
 		</nav>
 		{# main #}
@@ -87,4 +93,4 @@
 				© Copyright - Tables et Fleurs d'Un Jour</span>
 		</footer>
 	</body>
-</html>
+</html></body></html>

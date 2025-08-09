@@ -43,17 +43,17 @@
 
 	</head>
 	<body class="vh-100">
-		<div class="container mt-5">
-			<div class="row">
+		<div class="container mt-4">
+			<div class="row mb-3">
 				<div
-					class="col-lg-6 d-flex align-items-center">
+					class="col-lg-6 d-flex align-items-center mt-sm-5 mt-lg-0">
 					{# Img #}
 					<img src="/assets/img/logo-TFJ-bgremoved.png" alt="logo tables et fleurs d'un jour de la page inscription" class="img-fluid mx-auto">
 				</div>
 
 				{# Form #}
 
-				<div class="col-lg-6 vh-100 d-flex flex-column justify-content-center align-items-center">
+				<div class="col-lg-5 vh-100 d-flex flex-column justify-content-center align-items-center ms-4">
 
 					<h1 class="my-3">Connexion</h1>
 
@@ -63,7 +63,7 @@
 						<div class="alert alert-danger text-center">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
 					{% endif %}
 
-					<form method="post">
+					<form method="post" class="w-100 mt-3">
 
 						<div class="mb-3">
 							<label for="inputEmail">Email</label>

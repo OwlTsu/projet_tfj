@@ -10,5 +10,15 @@ html,
 }
 
 .navbar {
-    padding: 0.25rem 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.navbar-brand img {
+    height: 130px; // ajuste la taille du logo
+}
+
+.nav-link {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
 }
