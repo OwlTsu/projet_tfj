@@ -70,15 +70,27 @@
 			</ul>
 			<ul class="navbar-nav ms-auto">
 				{% if app.user %}
+					{% if is_granted('ROLE_ADMIN') %}
+						<li class="nav-item">
+							<a class="my-1 mx-lg-2 btn btn-outline-secondary shadow" href="{{path('app_admin_home')}}">Espace admin</a>
+						</li>
+					{% endif %}
+
+					{% if is_granted('ROLE_USER') %}
+						<li class="nav-item">
+							<a class="my-1 mx-lg-2 btn btn-outline-secondary shadow" href="{{path('app_user_home')}}">Espace utilisateur</a>
+						</li>
+					{% endif %}
+
 					<li class="nav-item">
-						<a class="nav-link" href="{{path('app_logout')}}">Déconnexion</a>
+						<a class="my-1 mx-lg-2 btn btn-secondary shadow" href="{{path('app_logout')}}">Déconnexion</a>
 					</li>
 				{% else %}
 					<li class="nav-item">
-						<a class="nav-link" href="{{path('app_login')}}">Connexion</a>
+						<a class="my-1 mx-lg-2 btn btn-outline-primary shadow" href="{{path('app_login')}}">Connexion</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="{{path('app_register')}}">Inscription</a>
+						<a class="my-1 mx-lg-2 btn btn-primary shadow" href="{{path('app_register')}}">Inscription</a>
 					</li>
 				{% endif %}
 			</ul>
