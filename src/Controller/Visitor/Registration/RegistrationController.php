@@ -19,9 +19,7 @@ use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
 class RegistrationController extends AbstractController
 {
-    public function __construct(private EmailVerifier $emailVerifier)
-    {
-    }
+    public function __construct(private EmailVerifier $emailVerifier) {}
 
     #[Route('/inscription', name: 'app_register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
@@ -53,7 +51,7 @@ class RegistrationController extends AbstractController
                 'app_verify_email',
                 $user,
                 (new TemplatedEmail())
-                    ->from(new Address('tablesetfleursdunjour@outlook.fr', 'Tables et Fleur D\'un Jour'))
+                    ->from(new Address('tablesetfleursdunjour@outlook.fr', 'Tables et Fleurs D\'un Jour'))
                     ->to((string) $user->getEmail())
                     ->subject('Vérifiez votre compte tables et fleurs d\'un jour')
                     ->htmlTemplate('emails/confirmation_email.html.twig')
