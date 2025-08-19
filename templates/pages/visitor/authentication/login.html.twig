@@ -11,11 +11,11 @@
 		name="viewport" content="width=device-width, initial-scale=1.0">
 
 		{# Le titre de la page #}
-		<title>Inscription - Tables et fleurs d'un jour</title>
+		<title>Connexion - Tables et fleurs d'un jour</title>
 
 		{# La description de la page #}
 		<meta
-		name="description" content="Inscrivez-vous pour une prise de contact plus simple ">
+		name="description" content="Connectez-vous a votre compte tables et fleur d'un jour">
 
 		{# Autorisation aux robots des moteurs de recherche d'indexer et de suivre la page #}
 		<meta
@@ -44,12 +44,14 @@
 	</head>
 	<body class="vh-100">
 		<div class="container mt-4">
-			<div class="row mb-3">
-				<div
-					class="col-lg-6 d-flex align-items-center mt-sm-5 mt-lg-0">
-					{# Img #}
+			<div
+				class="row mb-3">
+
+				{# Img #}
+				<a href="{{path('app_visitor_welcome')}}" class="col-lg-6 d-flex align-items-center mt-sm-5 mt-lg-0">
 					<img src="/assets/img/logo-TFJ-bgremoved.png" alt="logo tables et fleurs d'un jour de la page inscription" class="img-fluid mx-auto">
-				</div>
+				</a>
+
 
 				{# Form #}
 
@@ -93,13 +95,13 @@
 
 					<div class="mt-3 text-center">
 						<p>
-							{# <a href="{{path('app_forgot_password_request')}}">Mot de passe oublié?</a> #}
+							<a href="{{path('app_forgot_password_request')}}">Mot de passe oublié?</a>
 						</p>
 						<p>Vous n'avez pas encore de compte?
 							<a href="{{path('app_register')}}">Inscrivez-vous</a>
 						</p>
 						<p>
-							<a href="{{path('app_visitor_welcome')}}">Retour à l'accueil</a>
+							{# <a href="{{path('app_visitor_welcome')}}">Retour à l'accueil</a> #}
 						</p>
 					</div>
 				</div>

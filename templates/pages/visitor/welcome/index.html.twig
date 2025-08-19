@@ -1,13 +1,63 @@
 {% extends "themes/base_visitor.html.twig" %}
 
-
-{% block title %}
-	Accueil
+{% block title %}Accueil
 {% endblock %}
 
-{% block description %}
-	page d'accueil de l'entreprise Tables et Fleurs D'un Jour
+{% block description %}Bienvenue sur le site de tables et fleurs d'un jour
 {% endblock %}
 
-{% block main %}test acceuil
+{% block main %}
+
+	{# Hero-section #}
+	<header class="py-3">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-5 order-md-2 d-flex jsutify-content-center align-items-center">
+					<img src="/img/logo-TFJ-bgremoved" class="img-fluid" alt="logo tables et fleurs d'un jour vous souhaite la bienvenue sur son site">
+				</div>
+				<div class="col-md-7 order-md-1 d-flex flex-column justify-content-evenly align-items-center">
+					<h1 class="display-5 my-5">Bienvenue !</h1>
+
+					<div>
+						<p>Je suis Sandrine, passionné par la decoration et les mariages.</p>
+						<p>Je fais des decoration florale et des locations pour vos évènements .</p>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</header>
+
+	{# About-me section #}
+	<section class="bg-light py-3">
+		<h2 class="text-center my-3 display-5">Qui suis-je ?</h2>
+
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 d-flex justify-content-center align-items-center">
+					<img src="/img" class="img-fluid" alt="A propos de tables et fleurs d'un jour">
+				</div>
+				<div class="col-md-6 d-flex flex-column justify-content-center align-items-center">
+					<p>
+						Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati impedit nesciunt rerum ab consequuntur laborum dignissimos quidem delectus! Nihil quasi ab enim voluptates quae, laboriosam blanditiis sequi saepe, debitis consectetur a inventore. Odit id quidem nihil dicta eius veritatis.
+					</p>
+
+					<p>
+						Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati impedit nesciunt rerum ab consequuntur laborum dignissimos quidem delectus! Nihil quasi ab enim voluptates quae, laboriosam blanditiis sequi saepe, debitis consectetur a inventore. Odit id quidem nihil dicta eius veritatis.
+					</p>
+
+					<p>
+						Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati impedit nesciunt rerum ab consequuntur laborum dignissimos quidem delectus! Nihil quasi ab enim voluptates quae, laboriosam blanditiis sequi saepe, debitis consectetur a inventore. Odit id quidem nihil dicta eius veritatis.
+					</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	{# Contact-section #}
+	<div class="py-3 text-center bg-light">
+		<a href="{{path('app_visitor_contact_create')}}" class="my-3 btn btn-lg btn-secondary shadow">Contactez-moi</a>
+	</div>
+
 {% endblock %}
