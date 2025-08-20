@@ -22,3 +22,16 @@ html,
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
 }
+
+.hero {
+    background: radial-gradient(
+            1200px 400px at 10% -10%,
+            rgba(233, 176, 189, 0.25),
+            transparent 60%
+        ),
+        radial-gradient(
+            800px 300px at 90% 0%,
+            rgba(245, 176, 151, 0.2),
+            transparent 60%
+        );
+}
