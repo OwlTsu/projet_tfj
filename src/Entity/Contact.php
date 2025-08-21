@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ContactRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ContactRepository::class)]
 class Contact
@@ -17,18 +18,51 @@ class Contact
     #[ORM\ManyToOne(inversedBy: 'contacts')]
     private ?User $user = null;
 
+    #[Assert\NotBlank(message: 'Le prénom est obligatoire.')]
+    #[Assert\Length(
+        max: 255,
+        maxMessage: 'Le prénom ne doit pas dépasser {{ limit }} caractères.',
+    )]
     #[ORM\Column(length: 255)]
     private ?string $firstName = null;
 
+    #[Assert\NotBlank(message: 'Le nom est obligatoire.')]
+    #[Assert\Length(
+        max: 255,
+        maxMessage: 'Le nom ne doit pas dépasser {{ limit }} caractères.',
+    )]
     #[ORM\Column(length: 255)]
     private ?string $lastName = null;
 
+    #[Assert\NotBlank(message: "L'email est obligatoire.")]
+    #[Assert\Length(
+        max: 255,
+        maxMessage: "L'email ne doit pas dépasser {{ limit }} caractères.",
+    )]
+    #[Assert\Email(message: "L'email est invalide.")]
     #[ORM\Column(length: 255)]
     private ?string $email = null;
 
-    #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: 'Le numéro de téléphone est obligatoire.')]
+    #[Assert\Length(
+        min: 6,
+        max: 40,
+        minMessage: 'Le numéro de téléphone doit contenir au minimum {{ limit }} caractères.',
+        maxMessage: 'Le numéro de téléphone doit contenir au maximum {{ limit }} caractères.',
+    )]
+    #[Assert\Regex(
+        pattern: '/^[0-9- +]+$/',
+        match: true,
+        message: 'Le numéro de téléphone est invalide.',
+    )]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $phone = null;
 
+    #[Assert\NotBlank(message: 'Le message est obligatoire.')]
+    #[Assert\Length(
+        max: 2000,
+        maxMessage: 'Le message ne doit pas dépasser {{ limit }} caractères.',
+    )]
     #[ORM\Column(type: Types::TEXT)]
     private ?string $message = null;
 

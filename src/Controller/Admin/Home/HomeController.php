@@ -22,7 +22,7 @@ final class HomeController extends AbstractController
         // private TagRepository $tagRepository,
         // private CommentRepository $commentRepository,
         // private UserRepository $userRepository,
-        // private ContactRepository $contactRepository,
+        private ContactRepository $contactRepository,
         // private LikeRepository $likeRepository,
     ) {
     }
@@ -36,7 +36,7 @@ final class HomeController extends AbstractController
             // 'tags_count' => $this->tagRepository->count(),
             // 'comments_count' => $this->commentRepository->count(),
             // 'users_count' => $this->userRepository->count(),
-            // 'contacts_count' => $this->contactRepository->count(),
+            'contacts_count' => $this->contactRepository->count(),
             // 'likes_count' => $this->likeRepository->count(),
         ]);
     }
