@@ -17,7 +17,8 @@ final class CategoryController extends AbstractController
     public function __construct(
         private CategoryRepository $categoryRepository,
         private EntityManagerInterface $entityManager,
-    ) {}
+    ) {
+    }
 
     #[Route('/category/index', name: 'app_admin_category_index', methods: ['GET'])]
     public function index(): Response
