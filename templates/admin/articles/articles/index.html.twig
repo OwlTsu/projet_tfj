@@ -1,0 +1,109 @@
+{% extends "themes/base_admin.html.twig" %}
+
+{% block title %}Liste des articles
+{% endblock %}
+
+{% block description %}Liste des articles
+{% endblock %}
+
+{% block jQuery %}
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+{% endblock %}
+
+{% block dataTables %}
+	<link href="https://cdn.datatables.net/v/bs5/dt-2.3.1/datatables.min.css" rel="stylesheet" integrity="sha384-rcK/Hw0a8czqNV8XiNNbA2kqXBypz/reTTu9ewJiCYQRES16Xpl47dKudYItkU7M" crossorigin="anonymous">
+
+	<script src="https://cdn.datatables.net/v/bs5/dt-2.3.1/datatables.min.js" integrity="sha384-BE8jgQ18lLIDRFU5irQ26MTXl+tzWCKvu313il+U+Wo2wVTDr47xBIDmggcM21dh" crossorigin="anonymous"></script>
+
+	<script>
+		$(document).ready(function () {
+$('#myTable').DataTable({
+language: {
+url: 'https://cdn.datatables.net/plug-ins/2.3.1/i18n/fr-FR.json'
+}
+});
+});
+	</script>
+{% endblock %}
+
+{% block main %}
+	<h1 class="text-center my-3 display-5">Liste des articles</h1>
+
+	{% include 'components/alert.html.twig' %}
+
+	<div class="d-flex justify-content-end align-items-center my-3">
+		<a href="{{path('app_admin_articles_create')}}" class="btn btn-primary shadow">
+			<i class="fa-solid fa-plus"></i>
+			Nouvel article</a>
+	</div>
+
+	<div class="table-responsive">
+		<table id="myTable" class="table table-striped table-hover table-bordered text-center">
+			<thead class="table-dark">
+				<tr>
+					<th>Id</th>
+					<th>Image</th>
+					<th>Titre</th>
+					<th>Catégorie</th>
+					<th>Tags</th>
+					<th>Publié?</th>
+					<th>Contenu</th>
+					<th>Créé le</th>
+					<th>Options</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for article in articles %}
+					<tr>
+						<td>{{article.id}}</td>
+						<td>
+							{% if article.image %}
+								<img src="{{ vich_uploader_asset(article, 'imageFile') | imagine_filter('admin_article_thumb') }}" alt="{{ article.title }}">
+							{% else %}
+								<span>---</span>
+							{% endif %}
+						</td>
+						<td>{{article.title}}</td>
+						<td>{{article.category.name}}</td>
+						<td>
+							{% if article.tags is not empty %}
+								{% for tag in article.tags %}
+									<span class="badge text-bg-secondary">{{tag.name}}</span>
+								{% endfor %}
+							{% else %}
+								<span>---</span>
+							{% endif %}
+
+						</td>
+						<td>
+							{% if article.isPublished %}
+								<span>Publié le
+									{{article.publishedAt|date()}}</span>
+							{% else %}
+								<span>Pas encore</span>
+							{% endif %}
+
+							<form action="{{path('app_admin_article_publish', {'id':article.id})}}" method="article">
+								<div class="form-check form-switch d-flex justify-content-center align-items-center">
+									<input type="hidden" name="csrf_token" value="{{csrf_token('publish-article-'~article.id)}}">
+									<input {{article.isPublished ? 'checked' : ''}} onclick="return confirm('Confirmer cette action')" onchange="this.form.submit()" class="form-check-input" type="checkbox" role="switch">
+								</div>
+							</form>
+						</td>
+						<td>
+							<a href="{{path('app_admin_article_show', {'id':article.id})}}" class="btn btn-sm btn-dark">Lire</a>
+						</td>
+						<td>{{article.createdAt|date()}}</td>
+						<td>
+							<a href="{{path('app_admin_article_edit', {'id':article.id})}}" class="btn btn-sm btn-secondary m-1">Modifier</a>
+							<form class="d-inline" action="{{path('app_admin_article_delete', {'id':article.id})}}" method="article">
+								<input type="hidden" name="csrf_token" value="{{csrf_token('delete-article-'~article.id)}}">
+								<input onclick="return confirm('Confirmer la suppression de l\'article?')" type="submit" class="btn btn-sm btn-danger m-1" value="Supprimer">
+							</form>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+{% endblock %}

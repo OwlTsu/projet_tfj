@@ -18,14 +18,13 @@ final class HomeController extends AbstractController
 {
     public function __construct(
         private CategoryRepository $categoryRepository,
-        // private PostRepository $postRepository,
+        // private ArticlesRepository $articlesRepository,
         // private TagRepository $tagRepository,
         // private CommentRepository $commentRepository,
         // private UserRepository $userRepository,
         private ContactRepository $contactRepository,
         // private LikeRepository $likeRepository,
-    ) {
-    }
+    ) {}
 
     #[Route('/home', name: 'app_admin_home', methods: ['GET'])]
     public function index(): Response
