@@ -11,6 +11,8 @@
         "doctrine/doctrine-bundle": "^2.15",
         "doctrine/doctrine-migrations-bundle": "^3.4",
         "doctrine/orm": "^3.4",
+        "knplabs/knp-paginator-bundle": "^6.9",
+        "liip/imagine-bundle": "^2.13",
         "phpdocumentor/reflection-docblock": "^5.6",
         "phpstan/phpdoc-parser": "^2.1",
         "symfony/asset": "7.3.*",
@@ -48,7 +50,9 @@
         "twig/cssinliner-extra": "^3.21",
         "twig/extra-bundle": "^2.12|^3.0",
         "twig/inky-extra": "^3.21",
+        "twig/intl-extra": "^3.21",
         "twig/markdown-extra": "^3.21",
+        "twig/string-extra": "^3.21",
         "twig/twig": "^2.12|^3.0",
         "vich/uploader-bundle": "*"
     },

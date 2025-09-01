@@ -2,24 +2,25 @@
 
 namespace App\Form;
 
-use App\Entity\Article;
+use App\Entity\Articles;
 use App\Entity\Category;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Entity\SubCategory;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use Vich\UploaderBundle\Form\Type\VichImageType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class AdminArticlesFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('title', TextType::class, [
-                'label' => 'Titre',
-                'attr' => ['placeholder' => 'Entrez le titre de l\'article']
+            ->add('name', TextType::class, [
+                'label' => 'name',
+                'attr' => ['placeholder' => 'Entrez le nom de l\'article']
             ])
             ->add('category', EntityType::class, [
                 'class' => Category::class,
@@ -27,22 +28,46 @@ class AdminArticlesFormType extends AbstractType
                 'placeholder' => 'Sélectionnez une catégorie',
                 'label' => 'Catégorie'
             ])
-            ->add('description', TextType::class, [
-                'label' => 'Description',
+            ->add('subCategory', EntityType::class, [
+                'class' => SubCategory::class,
+                'choice_label' => 'name',
+                'placeholder' => 'Sélectionnez une sous-catégorie',
+                'label' => 'Sous-catégorie',
+                'required' => false,
+            ])
+
+            ->add('price', TextType::class, [
+                'label' => 'price',
                 'attr' => [
-                    'placeholder' => 'Description courte pour le SEO (max 160 caractères)',
+                    'placeholder' => 'mettre le prix de l\'article',
                     'maxlength' => 160
                 ]
             ])
-            ->add('keywords', TextType::class, [
-                'label' => 'Mots-clés',
+            ->add('code', TextType::class, [
+                'label' => 'code',
                 'attr' => [
-                    'placeholder' => 'Mots-clés séparés par des virgules (max 100 caractères)',
+                    'placeholder' => 'code reference du produit (max 100 caractères)',
                     'maxlength' => 100
                 ],
                 'required' => false
             ])
-            ->add('imageFile', VichImageType::class, [
+            ->add('size', TextType::class, [
+                'label' => 'Taille',
+                'required' => false,
+                'attr' => [
+                    'placeholder' => 'Exemple: 30 de hauteur, 30 de largeur',
+                    'maxlength' => 50,
+                ],
+            ])
+            ->add('color', TextType::class, [
+                'label' => 'Couleur',
+                'required' => false,
+                'attr' => [
+                    'placeholder' => 'Exemple : Rouge, Bleu, Noir',
+                    'maxlength' => 50,
+                ],
+            ])
+            ->add('imageOneFile', VichImageType::class, [
                 'required' => false,
                 'allow_delete' => true,
                 'delete_label' => 'Supprimer l\'image actuelle?',
@@ -53,8 +78,30 @@ class AdminArticlesFormType extends AbstractType
                 'label' => 'Image de l\'article',
                 'help' => 'Formats acceptés: PNG, JPEG, JPG, WEBP. Taille max: 3MB'
             ])
-            ->add('content', TextareaType::class, [
-                'label' => 'Contenu',
+            ->add('imageTwoFile', VichImageType::class, [
+                'required' => false,
+                'allow_delete' => true,
+                'delete_label' => 'Supprimer l\'image actuelle?',
+                'download_label' => false,
+                'download_uri' => false,
+                'image_uri' => false,
+                'asset_helper' => true,
+                'label' => 'Image de l\'article',
+                'help' => 'Formats acceptés: PNG, JPEG, JPG, WEBP. Taille max: 3MB'
+            ])
+            ->add('imageThreeFile', VichImageType::class, [
+                'required' => false,
+                'allow_delete' => true,
+                'delete_label' => 'Supprimer l\'image actuelle?',
+                'download_label' => false,
+                'download_uri' => false,
+                'image_uri' => false,
+                'asset_helper' => true,
+                'label' => 'Image de l\'article',
+                'help' => 'Formats acceptés: PNG, JPEG, JPG, WEBP. Taille max: 3MB'
+            ])
+            ->add('detail', TextareaType::class, [
+                'label' => 'detail',
                 'attr' => [
                     'rows' => 15,
                     'placeholder' => 'Rédigez le contenu de votre article...',

@@ -1,0 +1,74 @@
+{% extends "themes/base_visitor.html.twig" %}
+
+{% block title %}Article:
+	{{ article.name }}
+{% endblock %}
+{% block description %}
+	{{ article.detail }}
+{% endblock %}
+
+{% block main %}
+	<div class="container mt-5">
+
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item">
+					<a href="{{ path('app_visitor_location') }}">Liste des articles</a>
+				</li>
+				<li class="breadcrumb-item active" aria-current="page">{{ article.name|u.truncate(60, '...') }}</li>
+			</ol>
+		</nav>
+
+		<div class="jd-container-img text-center mb-5">
+			{% if article.imageOne %}
+				<img src="{{ vich_uploader_asset(article, 'imageOneFile') }}" class="img-fluid mb-3" alt="{{ article.name }}">
+			{% endif %}
+			{% if article.imageTwo %}
+				<img src="{{ vich_uploader_asset(article, 'imageTwoFile') }}" class="img-fluid mb-3" alt="{{ article.name }}">
+			{% endif %}
+			{% if article.imageThree %}
+				<img src="{{ vich_uploader_asset(article, 'imageThreeFile') }}" class="img-fluid mb-3" alt="{{ article.name }}">
+			{% endif %}
+
+			<h1>{{ article.name }}</h1>
+			<p class="text-muted">
+				Publié le
+				{{ article.createdAt ? article.createdAt|date('d/m/Y') : 'Date inconnue' }}
+			</p>
+		</div>
+
+		<div class="jd-container-post my-5">
+			<p>{{ article.detail|nl2br }}</p>
+
+			<div class="my-3">
+				<p>
+					<strong>Catégorie:</strong>
+					{{ article.category.name }}</p>
+				{% if article.subCategory %}
+					<p>
+						<strong>Sous-catégorie:</strong>
+						{{ article.subCategory.name }}</p>
+				{% endif %}
+				<p>
+					<strong>Prix:</strong>
+					{{ article.price }}
+					€</p>
+				{% if article.size %}
+					<p>
+						<strong>Taille:</strong>
+						{{ article.size }}</p>
+				{% endif %}
+				{% if article.color %}
+					<p>
+						<strong>Couleur:</strong>
+						{{ article.color }}</p>
+				{% endif %}
+			</div>
+
+			<div class="mt-4">
+				<a href="{{ path('app_visitor_location') }}" class="btn btn-secondary">Retour à la liste</a>
+			</div>
+		</div>
+
+	</div>
+{% endblock %}

@@ -5,11 +5,20 @@ vich_uploader:
         type: attribute
 
     mappings:
+        # Mapping pour articles généraux (si tu en as un autre usage)
         articles:
             uri_prefix: /images/dynamic/posts
-            upload_destination: "%kernel.project_dir%/public/images/dynamic/posts"
+            upload_destination: "%kernel.project_dir%/public/images/dynamic/"
             namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true
 
+        # Mapping pour les images de l'entité Articles (imageOne, imageTwo, imageThree)
+        articles_images:
+            uri_prefix: /uploads/articles
+            upload_destination: "%kernel.project_dir%/public/uploads/articles"
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
             inject_on_load: false
             delete_on_update: true
             delete_on_remove: true

@@ -14,6 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     message: 'Cette catégorie existe déjà. Veuillez en choisir une autre.',
 )]
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Category
 {
     #[ORM\Id]
@@ -38,7 +39,7 @@ class Category
     /**
      * @var Collection<int, Articles>
      */
-    #[ORM\OneToMany(targetEntity: Article::class, mappedBy: 'category')]
+    #[ORM\OneToMany(targetEntity: Articles::class, mappedBy: 'category')]
     private Collection $articles;
 
     /**
@@ -115,7 +116,7 @@ class Category
         return $this->articles;
     }
 
-    public function addArticle(Article $article): static
+    public function addArticle(Articles $article): static
     {
         if (!$this->articles->contains($article)) {
             $this->articles->add($article);
@@ -125,7 +126,7 @@ class Category
         return $this;
     }
 
-    public function removeArticle(Article $article): static
+    public function removeArticle(Articles $article): static
     {
         if ($this->articles->removeElement($article)) {
             // set the owning side to null (unless already changed)
