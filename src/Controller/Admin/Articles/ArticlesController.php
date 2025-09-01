@@ -2,7 +2,7 @@
 
 namespace App\Controller\Admin\Articles;
 
-use App\Entity\Article;
+use App\Entity\Articles;
 use App\Entity\User;
 use App\Form\AdminArticlesFormType;
 use App\Repository\CategoryRepository;
@@ -22,17 +22,19 @@ final class ArticlesController extends AbstractController
         private CategoryRepository $categoryRepository,
     ) {}
 
-    #[Route('/post/index', name: 'app_admin_post_index', methods: ['GET'])]
+    #[Route('/articles/index', name: 'app_admin_articles_index', methods: ['GET'])]
     public function index(): Response
     {
         $articles = $this->ArticleRepository->findAll();
+        $articlesCount = count($articles);
 
         return $this->render('pages/admin/articles/index.html.twig', [
             'articles' => $articles,
+            'articles_count' => $articlesCount,
         ]);
     }
 
-    #[Route('/articles/create', name: 'app_admin_articles_create', methods: ['GET', 'articles'])]
+    #[Route('/articles/create', name: 'app_admin_articles_create', methods: ['GET', 'POST'])]
     public function create(Request $request): Response
     {
         if (0 == count($this->categoryRepository->findAll())) {
@@ -41,19 +43,12 @@ final class ArticlesController extends AbstractController
             return $this->redirectToRoute('app_admin_category_index');
         }
 
-        $article = new article();
+        $article = new Articles();
 
         $form = $this->createForm(AdminArticlesFormType::class, $article);
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            /**
-             * @var User
-             */
-            $user = $this->getUser();
-
-            $article->setUser($user);
             $article->setCreatedAt(new \DateTimeImmutable());
             $article->setUpdatedAt(new \DateTimeImmutable());
 
@@ -70,20 +65,21 @@ final class ArticlesController extends AbstractController
         ]);
     }
 
-    #[Route('/articles/edit/{id<\d+>}', name: 'app_admin_articles_edit', methods: ['GET', 'article'])]
-    public function edit(article $article, Request $request): Response
+    #[Route('/articles/show/{id<\d+>}', name: 'app_admin_articles_show', methods: ['GET'])]
+    public function show(Articles $article): Response
+    {
+        return $this->render('pages/admin/articles/show.html.twig', [
+            'article' => $article,
+        ]);
+    }
+
+    #[Route('/articles/edit/{id<\d+>}', name: 'app_admin_articles_edit', methods: ['GET', 'POST'])]
+    public function edit(Articles $article, Request $request): Response
     {
         $form = $this->createForm(AdminArticlesFormType::class, $article);
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            /**
-             * @var User
-             */
-            $user = $this->getUser();
-
-            $article->setUser($user);
             $article->setUpdatedAt(new \DateTimeImmutable());
 
             $this->entityManager->persist($article);
@@ -100,11 +96,11 @@ final class ArticlesController extends AbstractController
         ]);
     }
 
-    #[Route('/articles/delete/{id<\d+>}', name: 'app_admin_articles_delete', methods: ['articles'])]
-    public function delete(article $articles, Request $request): Response
+    #[Route('/articles/delete/{id<\d+>}', name: 'app_admin_articles_delete', methods: ['POST'])]
+    public function delete(Articles $article, Request $request): Response
     {
-        if ($this->isCsrfTokenValid("delete-articles-{$articles->getId()}", $request->request->get('csrf_token'))) {
-            $this->entityManager->remove($articles);
+        if ($this->isCsrfTokenValid("delete-article-{$article->getId()}", $request->request->get('csrf_token'))) {
+            $this->entityManager->remove($article);
             $this->entityManager->flush();
 
             $this->addFlash('success', "L'article a été supprimé");

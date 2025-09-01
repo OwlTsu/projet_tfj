@@ -1,0 +1,4 @@
+-   Mettre à jour le schema conceptuel de la base de données en fonction de ce que vosu avez prévu fait
+-   Vérifier si les entités sont conformes à la conception
+-   Vérifier les types de formulaires associés à ces entités afin de voir si le nom et le nombre des champs correspondent
+-   Vérifier la vue associée à chaque type type de formulaire (create, edit) si le nom des propriétés servant d'input corresponent aux champs de chaque type de formulaire

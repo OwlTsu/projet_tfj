@@ -1,14 +1,122 @@
 {% extends "themes/base_visitor.html.twig" %}
 
-
-{% block title %}
-	Nos locations
+{% block title %}Liste des articles
+{% endblock %}
+{% block description %}Nos articles en locations
 {% endblock %}
 
-{% block description %}
-	Page montrant toute les locations que l'entreprise Tables et Fleurs D'un Jour propose
+{% block knp_paginator_rel_links %}
+	{{ knp_pagination_rel_links(articles) }}
 {% endblock %}
 
 {% block main %}
-	<h1 class="text-center my-3 display-5">Nos produits en location</h1>
+	{# {% include 'components/visitor/header-visitor.html.twig' with {'h1': 'Liste des articles'} %} #}
+
+	<div class="container mt-5">
+		<div class="row text-center gap-3 gap-md-0">
+			<div class="col-md-6">
+				<div class="dropdown">
+					<button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+						Les catégories
+					</button>
+					<ul class="dropdown-menu">
+						{% if categories is not empty %}
+							{% for category in categories %}
+								{% set articleCount = category.articles|length %}
+								<li>
+									<a class="dropdown-item" href="{{ path('app_visitor_articles_filter_by_category', {'id': category.id}) }}">
+										{{ category.name }}
+										({{ articleCount }}
+										article{{ articleCount > 1 ? 's' : '' }})
+									</a>
+								</li>
+							{% endfor %}
+						{% else %}
+							<li>
+								<a class="dropdown-item" href="#">Aucune catégorie disponible</a>
+							</li>
+						{% endif %}
+					</ul>
+				</div>
+			</div>
+
+			<div class="col-md-6">
+				<div class="dropdown">
+					<button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+						Les sous catégories
+					</button>
+					<ul class="dropdown-menu">
+						{% if subCategories is not empty %}
+							{% for subCategory in subCategories %}
+								{% set articleCount = subCategory.articles|length %}
+								<li>
+									<a class="dropdown-item" href="{{ path('app_visitor_articles_filter_by_tag', {'id': subCategory.id}) }}">
+										{{ subCategories.name }}
+										({{ articleCount }}
+										article{{ articleCount > 1 ? 's' : '' }})
+									</a>
+								</li>
+							{% endfor %}
+						{% else %}
+							<li>
+								<a class="dropdown-item" href="#">Aucune sous catégorie disponible</a>
+							</li>
+						{% endif %}
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="row my-5">
+			<div class="col-md-10 col-lg-10 mx-auto">
+				{% for article in articles %}
+					<article class="card mb-3 shadow">
+						<div class="row g-0">
+							<div class="col-md-4 d-flex justify-content-center align-items-center rounded">
+								{% if article.imageOne %}
+									<img src="{{ vich_uploader_asset(article, 'imageOneFile') | imagine_filter('visitor_article_thumb') }}" class="rounded-start w-100 h-100" alt="{{ article.name }}">
+								{% else %}
+									<img src="/images/static/blog/default-post-image.png" class="img-fluid rounded-start" alt="{{ article.name }}">
+								{% endif %}
+							</div>
+							<div class="col-md-8">
+								<div class="card-body">
+									<h2 class="card-title">{{ article.name|u.truncate(60, '...') }}</h2>
+									<p class="card-text">{{ article.detail|u.truncate(120, '...') }}</p>
+									<p>
+										<strong>Catégorie:
+										</strong>
+										{{ article.category.name }}</p>
+									{% if article.subCategory is not empty %}
+										<p>
+											<strong>Tags:
+											</strong>
+											{% for tag in article.tags %}
+												<span class="mx-1 badge text-bg-secondary">{{ tag.name }}</span>
+											{% endfor %}
+										</p>
+									{% endif %}
+
+									{# <p class="card-text">
+																																																																																																				<small class="text-body-secondary">Publié
+																																																																																																					{{ article.createdAt|ago }}</small>
+																																																																																																			</p> #}
+									<p>
+										<a href="{{ path('app_visitor_location_show', {'id': article.id}) }}" class="btn btn-lg btn-primary shadow">
+											Voir l'article
+										</a>
+									</p>
+								</div>
+							</div>
+						</div>
+					</article>
+					<hr class="my-3">
+				{% endfor %}
+
+				<div class="d-flex justify-content-end align-items-center">
+					{{ knp_pagination_render(articles) }}
+				</div>
+			</div>
+		</div>
+	</div>
 {% endblock %}
